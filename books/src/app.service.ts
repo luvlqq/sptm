@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  createBookList() {}
+  findAll() {
+    return 'test get';
+  }
 
-  createQueueBook() {}
+  createQueueBook() {
+    return 'test post';
+  }
 }
