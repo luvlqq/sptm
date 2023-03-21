@@ -1,0 +1,37 @@
+{
+	"info": {
+		"_postman_id": "7cfc6dbd-fffe-4471-8af6-13d2efd94216",
+		"name": "stpm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24182499"
+	},
+	"item": [
+		{
+			"name": "show books",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "queue of books",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
