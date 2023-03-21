@@ -4,8 +4,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { BookSchema } from '../schemas/book.schema';
-import { BooksEntity } from '../entity/books.entity';
+import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
@@ -14,7 +13,7 @@ import { BooksEntity } from '../entity/books.entity';
     MongooseModule.forRoot(
       'mongodb+srv://admin:adminadmin@cluster0.z1jmopj.mongodb.net/?retryWrites=true&w=majority',
     ),
-    MongooseModule.forFeature([{ name: BooksEntity.name, schema: BookSchema }]),
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
