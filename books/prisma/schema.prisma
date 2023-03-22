@@ -15,3 +15,9 @@ model BookModel {
   author String
   genre  String
 }
+
+model UserModel {
+  id             Int    @unique @default(autoincrement())
+  login          String @unique
+  hashedPassword String
+}
