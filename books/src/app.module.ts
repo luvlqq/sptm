@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BooksModule } from './books/books.module';
+import { PrismaService } from '../prisma/prisma.service';
+import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
   imports: [
@@ -14,8 +16,9 @@ import { BooksModule } from './books/books.module';
       'mongodb+srv://admin:adminadmin@cluster0.z1jmopj.mongodb.net/?retryWrites=true&w=majority',
     ),
     BooksModule,
+    PrismaModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}
