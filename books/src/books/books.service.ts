@@ -18,6 +18,7 @@ export class BooksService {
     if (foundBook) {
       throw new BadRequestException('Book already exist!');
     }
+
     await this.prisma.bookModel.create({
       data: { title, author, genre },
     });
