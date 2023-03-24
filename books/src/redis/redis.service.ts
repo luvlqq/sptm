@@ -1,18 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import * as Redis from 'nestjs-redis';
+import * as Redis from 'redis';
+import { promisify } from 'util';
 
 @Injectable()
 export class RedisService {
-  // constructor(private readonly redisService: RedisService) {}
+  // private readonly client: Redis.RedisClient;
   //
-  // async setValue(key: string, value: string) {
-  //   const client = await this.redisService.getClient();
-  //   await client.set(key, value);
+  // constructor() {
+  //   this.client = Redis.createClient();
   // }
   //
-  // async getValue(key: string): Promise<string> {
-  //   const client = await this.redisService.getClient();
-  //   const result = await client.get(key);
-  //   return result;
+  // async subscribe(channel: string, callback: Function) {
+  //   const asyncCallback = promisify(callback);
+  //   await this.client.subscribe(channel);
+  //   this.client.on('message', async (ch, message) => {
+  //     if (ch === channel) {
+  //       await asyncCallback(JSON.parse(message));
+  //     }
+  //   });
+  // }
+  //
+  // async publish(channel: string, message: any) {
+  //   await this.client.publish(channel, JSON.stringify(message));
   // }
 }
