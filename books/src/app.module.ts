@@ -6,7 +6,10 @@ import { AuthModule } from './auth/auth.module';
 import { BooksModule } from './books/books.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrismaModule } from '../prisma/prisma.module';
-import { RedisModule } from 'nestjs-redis';
+import { BooksService } from './books/books.service';
+import { RedisModule } from './redis/redis.module';
+import { BullModule } from '@nestjs/bullmq';
+import { BOOK_QUEUE } from './utils/constants';
 
 @Module({
   imports: [
@@ -14,9 +17,18 @@ import { RedisModule } from 'nestjs-redis';
     AuthModule,
     BooksModule,
     PrismaModule,
-    RedisModule.register({ url: 'redis://localhost:6379' }),
+    RedisModule,
+    BullModule.forRoot({
+      connection: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    BullModule.registerQueue({
+      name: BOOK_QUEUE,
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, BooksService],
 })
 export class AppModule {}

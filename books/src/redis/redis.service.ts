@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import * as Redis from 'redis';
-import { promisify } from 'util';
+import { PrismaService } from '../../prisma/prisma.service';
+import { Processor, Process } from '@nestjs/bull';
+import { Job } from 'bullmq';
+import { BooksService } from '../books/books.service';
+import { BooksDto } from '../books/dto/books.dto';
 
+@Processor('bookQueue')
 @Injectable()
 export class RedisService {
-  // private readonly client: Redis.RedisClient;
-  //
-  // constructor() {
-  //   this.client = Redis.createClient();
-  // }
-  //
-  // async subscribe(channel: string, callback: Function) {
-  //   const asyncCallback = promisify(callback);
-  //   await this.client.subscribe(channel);
-  //   this.client.on('message', async (ch, message) => {
-  //     if (ch === channel) {
-  //       await asyncCallback(JSON.parse(message));
-  //     }
-  //   });
-  // }
-  //
-  // async publish(channel: string, message: any) {
-  //   await this.client.publish(channel, JSON.stringify(message));
-  // }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly bookService: BooksService,
+  ) {}
+
+  @Process()
+  async bookHandle(dto: BooksDto, job: Job) {
+    console.log(`Processing job ${job?.id}`);
+    await this.bookService.createBook(dto);
+    console.log(`Job ${job?.id} processed`);
+  }
 }

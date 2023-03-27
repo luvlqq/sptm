@@ -1,14 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { BooksDto } from './dto/books.dto';
-import { RedisService } from 'nestjs-redis';
 
 @Injectable()
 export class BooksService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly redis: RedisService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async getBook() {
     return this.prisma.bookModel.findMany();
@@ -22,7 +18,6 @@ export class BooksService {
     if (foundBook) {
       throw new BadRequestException('Book already exist!');
     }
-    await this.redis.getClient();
     await this.prisma.bookModel.create({
       data: { title, author, genre },
     });
