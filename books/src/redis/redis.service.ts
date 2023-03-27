@@ -16,7 +16,7 @@ export class RedisService {
   @Process()
   async bookHandle(dto: BooksDto, job: Job) {
     console.log(`Processing job ${job?.id}`);
-    await this.bookService.createBook(dto);
+    await this.bookService.createBook(dto, job);
     console.log(`Job ${job?.id} processed`);
   }
 }

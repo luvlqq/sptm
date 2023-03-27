@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { BooksDto } from './dto/books.dto';
+import { Job } from 'bullmq';
 
 @Injectable()
 export class BooksService {
@@ -10,7 +11,7 @@ export class BooksService {
     return this.prisma.bookModel.findMany();
   }
 
-  async createBook(dto: BooksDto) {
+  async createBook(dto: BooksDto, job: Job) {
     const { title, author, genre } = dto;
     const foundBook = await this.prisma.bookModel.findUnique({
       where: { title },
